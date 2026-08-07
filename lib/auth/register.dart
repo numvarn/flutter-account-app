@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_app/auth/login.dart';
@@ -40,15 +41,40 @@ class _RegisterPageState extends State<RegisterPage> {
       _isLoading = true;
     });
 
+    final fname = _fnameController.text.trim();
+    final lname = _lnameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    debugPrint('================ [REGISTER REQUEST LOG] ================');
+    debugPrint('Initiating Registration Request...');
+    debugPrint('Endpoint Target: POST ${ApiService.baseUrl}/auth/register');
+    debugPrint('Request Payload:');
+    debugPrint('  • First Name: $fname');
+    debugPrint('  • Last Name:  $lname');
+    debugPrint('  • Email:      $email');
+    debugPrint('  • Password:   [PROTECTED] (${password.length} chars)');
+    debugPrint('=======================================================');
+
     try {
       final result = await ApiService.register(
-        fname: _fnameController.text.trim(),
-        lname: _lnameController.text.trim(),
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
+        fname: fname,
+        lname: lname,
+        email: email,
+        password: password,
       );
 
-      debugPrint('Register Result: $result');
+      debugPrint('================ [REGISTER SUCCESS LOG] ================');
+      debugPrint('Register API Call Completed Successfully!');
+      debugPrint('Full Response Object (Map): $result');
+      try {
+        const encoder = JsonEncoder.withIndent('  ');
+        debugPrint('Formatted Response JSON:\n${encoder.convert(result)}');
+      } catch (_) {}
+      debugPrint('Message:        ${result['message']}');
+      debugPrint('Returned Token: ${result['token']}');
+      debugPrint('User Details:   ${result['user']}');
+      debugPrint('========================================================');
 
       Get.snackbar(
         'สำเร็จ',
@@ -62,8 +88,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
       // ไปยังหน้าเข้าสู่ระบบหลังสมัครสมาชิกสำเร็จ
       Get.off(() => const LoginPage());
-    } catch (e) {
-      debugPrint('Register Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('================ [REGISTER ERROR LOG] ================');
+      debugPrint('Register API Call Failed!');
+      debugPrint('Error Details: $e');
+      debugPrint('StackTrace:\n$stackTrace');
+      debugPrint('======================================================');
+
       final errorMessage = e.toString().replaceAll('Exception: ', '');
       Get.snackbar(
         'ลงทะเบียนไม่สำเร็จ',

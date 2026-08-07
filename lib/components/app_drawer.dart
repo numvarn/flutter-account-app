@@ -8,6 +8,8 @@ import 'package:get_app/greenpoint/green_point_page.dart';
 import 'package:get_app/greenpoint/partner_store_page.dart';
 import 'package:get_app/auth/welcome_page.dart';
 import 'package:get_app/services/api_service.dart';
+import 'package:get_app/transactions/create_transaction_page.dart';
+import 'package:get_app/transactions/transaction_list_page.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -143,6 +145,24 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
             ),
+          ),
+          _buildDrawerItem(
+            icon: Icons.receipt_long_rounded,
+            title: 'รายการบัญชี & สรุปยอด (List Transactions)',
+            color: const Color(0xFF0D9488),
+            onTap: () {
+              Get.back();
+              Get.to(() => const TransactionListPage());
+            },
+          ),
+          _buildDrawerItem(
+            icon: Icons.add_card_rounded,
+            title: 'เพิ่มรายการรายรับ-รายจ่าย (Create Transaction)',
+            color: const Color(0xFF2563EB),
+            onTap: () {
+              Get.back();
+              Get.to(() => const CreateTransactionPage());
+            },
           ),
           _buildDrawerItem(
             icon: Icons.logout_rounded,

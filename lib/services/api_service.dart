@@ -147,4 +147,158 @@ class ApiService {
       throw Exception(data['error'] ?? 'ไม่สามารถดึงข้อมูลโปรไฟล์ได้');
     }
   }
+
+  /// Create a new transaction (POST /api/transactions)
+  static Future<Map<String, dynamic>> createTransaction({
+    required String type, // 'income' or 'expense'
+    required double amount,
+    required String category,
+    String? description,
+    String? date, // YYYY-MM-DD
+  }) async {
+    final token = await TokenService.getToken();
+    final url = Uri.parse('$baseUrl/transactions');
+
+    final payload = {
+      'type': type,
+      'amount': amount,
+      'category': category,
+      if (description != null && description.trim().isNotEmpty)
+        'description': description.trim(),
+      if (date != null && date.trim().isNotEmpty) 'date': date.trim(),
+    };
+
+    debugPrint('================ [CREATE TRANSACTION REQUEST] ================');
+    debugPrint('Endpoint: POST $url');
+    debugPrint('Payload: ${jsonEncode(payload)}');
+    debugPrint('Token Present: ${token != null}');
+    debugPrint('==============================================================');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(payload),
+    );
+
+    debugPrint('================ [CREATE TRANSACTION RESPONSE] ================');
+    debugPrint('Status Code: ${response.statusCode}');
+    debugPrint('Response Body: ${response.body}');
+    debugPrint('===============================================================');
+
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return data;
+    } else {
+      final errorMessage =
+          data['error'] ??
+          'เกิดข้อผิดพลาดในการบันทึกรายการ (${response.statusCode})';
+      throw Exception(errorMessage);
+    }
+  }
+
+  /// Get list of transactions & summary (GET /api/transactions)
+  static Future<Map<String, dynamic>> getTransactions({
+    String? type,
+    String? category,
+    String? startDate,
+    String? endDate,
+    int? page,
+    int? limit,
+  }) async {
+    final token = await TokenService.getToken();
+    final queryParams = <String, String>{};
+    if (type != null && type.isNotEmpty && type != 'all') {
+      queryParams['type'] = type;
+    }
+    if (category != null && category.isNotEmpty) {
+      queryParams['category'] = category;
+    }
+    if (startDate != null && startDate.isNotEmpty) {
+      queryParams['startDate'] = startDate;
+    }
+    if (endDate != null && endDate.isNotEmpty) {
+      queryParams['endDate'] = endDate;
+    }
+    if (page != null && page > 0) {
+      queryParams['page'] = page.toString();
+    }
+    if (limit != null && limit > 0) {
+      queryParams['limit'] = limit.toString();
+    }
+
+    final uri = Uri.parse('$baseUrl/transactions').replace(
+      queryParameters: queryParams.isNotEmpty ? queryParams : null,
+    );
+
+    debugPrint('================ [GET TRANSACTIONS REQUEST] ================');
+    debugPrint('Endpoint: GET $uri');
+    debugPrint('===========================================================');
+
+    final response = await http.get(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+
+    debugPrint('================ [GET TRANSACTIONS RESPONSE] ================');
+    debugPrint('Status Code: ${response.statusCode}');
+    debugPrint('Response Body: ${response.body}');
+    debugPrint('============================================================');
+
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return data;
+    } else {
+      final errorMessage =
+          data['error'] ??
+          'เกิดข้อผิดพลาดในการดึงรายการ (${response.statusCode})';
+      throw Exception(errorMessage);
+    }
+  }
+
+  /// Delete transaction by ID (DELETE /api/transactions/:id)
+  static Future<Map<String, dynamic>> deleteTransaction(String id) async {
+    final token = await TokenService.getToken();
+    final url = Uri.parse('$baseUrl/transactions/$id');
+
+    debugPrint('================ [DELETE TRANSACTION REQUEST] ================');
+    debugPrint('Endpoint: DELETE $url');
+    debugPrint('=============================================================');
+
+    final response = await http.delete(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+
+    debugPrint('================ [DELETE TRANSACTION RESPONSE] ================');
+    debugPrint('Status Code: ${response.statusCode}');
+    debugPrint('Response Body: ${response.body}');
+    debugPrint('==============================================================');
+
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return data;
+    } else {
+      final errorMessage =
+          data['error'] ??
+          'เกิดข้อผิดพลาดในการลบรายการ (${response.statusCode})';
+      throw Exception(errorMessage);
+    }
+  }
 }
+
+
