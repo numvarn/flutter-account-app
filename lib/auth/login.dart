@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_app/auth/register.dart';
 import 'package:get_app/my_home_page.dart';
+import 'package:get_app/services/api_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,12 +18,61 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final result = await ApiService.login(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+
+      debugPrint('Login Result: $result');
+
+      Get.snackbar(
+        'เข้าสู่ระบบสำเร็จ',
+        result['message'] ?? 'ยินดีต้อนรับเข้าสู่ระบบ',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF10B981),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 3),
+      );
+
+      // นำทางไปยังหน้าหลัก
+      Get.offAll(() => const MyHomePage());
+    } catch (e) {
+      debugPrint('Login Error: $e');
+      final errorMessage = e.toString().replaceAll('Exception: ', '');
+      Get.snackbar(
+        'เข้าสู่ระบบไม่สำเร็จ',
+        errorMessage,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFFEF4444),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 4),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -136,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                       if (value == null || value.trim().isEmpty) {
                         return 'กรุณากรอกอีเมล';
                       }
-                      if (!value.contains('@')) {
+                      if (!GetUtils.isEmail(value.trim())) {
                         return 'รูปแบบอีเมลไม่ถูกต้อง';
                       }
                       return null;
@@ -232,16 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          String email = _emailController.text;
-                          String password = _passwordController.text;
-                          debugPrint(
-                            'Login สำเร็จด้วย: $email ( password length: ${password.length} )',
-                          );
-                          Get.offAll(() => const MyHomePage());
-                        }
-                      },
+                      onPressed: _isLoading ? null : _handleLogin,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0F172A), // Slate 900
                         foregroundColor: Colors.white,
@@ -250,14 +291,23 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(
-                        'เข้าสู่ระบบ',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.2,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.5,
+                              ),
+                            )
+                          : const Text(
+                              'เข้าสู่ระบบ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.2,
+                              ),
+                            ),
                     ),
                   ),
                   const SizedBox(height: 24),

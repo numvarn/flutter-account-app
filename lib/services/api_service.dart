@@ -48,4 +48,42 @@ class ApiService {
       throw Exception(errorMessage);
     }
   }
+
+  /// Login existing user
+  /// [email] - User Email
+  /// [password] - User Password
+  static Future<Map<String, dynamic>> login({
+    required String email,
+    required String password,
+  }) async {
+    final url = Uri.parse('$baseUrl/auth/login');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    // Print backend response logs to console
+    debugPrint('================ [API RESPONSE LOG] ================');
+    debugPrint('Endpoint: POST $url');
+    debugPrint('Status Code: ${response.statusCode}');
+    debugPrint('Response Body: ${response.body}');
+    debugPrint('====================================================');
+
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return data;
+    } else {
+      final errorMessage = data['error'] ?? 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ (${response.statusCode})';
+      throw Exception(errorMessage);
+    }
+  }
 }

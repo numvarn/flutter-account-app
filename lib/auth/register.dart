@@ -86,19 +86,28 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC), // Slate 50 Clean minimal background
+      backgroundColor: const Color(
+        0xFFF8FAFC,
+      ), // Slate 50 Clean minimal background
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF0F172A), size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Color(0xFF0F172A),
+            size: 20,
+          ),
           onPressed: () => Get.back(),
         ),
       ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 16.0,
+            ),
             child: Form(
               key: _formKey,
               child: Column(
@@ -117,10 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 8),
                   const Text(
                     'กรอกข้อมูลด้านล่างเพื่อเริ่มต้นใช้งานระบบ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF64748B),
-                    ),
+                    style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
                   ),
                   const SizedBox(height: 32),
 
@@ -142,29 +148,53 @@ class _RegisterPageState extends State<RegisterPage> {
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: _fnameController,
-                              style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A)),
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFF0F172A),
+                              ),
                               decoration: InputDecoration(
                                 hintText: 'สมชาย',
-                                hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-                                prefixIcon: const Icon(Icons.person_outline_rounded, color: Color(0xFF64748B), size: 20),
+                                hintStyle: const TextStyle(
+                                  color: Color(0xFF94A3B8),
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline_rounded,
+                                  color: Color(0xFF64748B),
+                                  size: 20,
+                                ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFE2E8F0),
+                                    width: 1,
+                                  ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFF0F172A), width: 1.5),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFF0F172A),
+                                    width: 1.5,
+                                  ),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFEF4444),
+                                    width: 1,
+                                  ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFEF4444),
+                                    width: 1.5,
+                                  ),
                                 ),
                               ),
                               validator: (value) {
@@ -193,29 +223,53 @@ class _RegisterPageState extends State<RegisterPage> {
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: _lnameController,
-                              style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A)),
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFF0F172A),
+                              ),
                               decoration: InputDecoration(
                                 hintText: 'ดีใจ',
-                                hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-                                prefixIcon: const Icon(Icons.person_outline_rounded, color: Color(0xFF64748B), size: 20),
+                                hintStyle: const TextStyle(
+                                  color: Color(0xFF94A3B8),
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline_rounded,
+                                  color: Color(0xFF64748B),
+                                  size: 20,
+                                ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFE2E8F0),
+                                    width: 1,
+                                  ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFF0F172A), width: 1.5),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFF0F172A),
+                                    width: 1.5,
+                                  ),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFEF4444),
+                                    width: 1,
+                                  ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFFEF4444),
+                                    width: 1.5,
+                                  ),
                                 ),
                               ),
                               validator: (value) {
@@ -245,29 +299,51 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A)),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Color(0xFF0F172A),
+                    ),
                     decoration: InputDecoration(
                       hintText: 'example@email.com',
                       hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-                      prefixIcon: const Icon(Icons.mail_outline_rounded, color: Color(0xFF64748B), size: 20),
+                      prefixIcon: const Icon(
+                        Icons.mail_outline_rounded,
+                        color: Color(0xFF64748B),
+                        size: 20,
+                      ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFE2E8F0),
+                          width: 1,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF0F172A), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF0F172A),
+                          width: 1.5,
+                        ),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1,
+                        ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1.5,
+                        ),
                       ),
                     ),
                     validator: (value) {
@@ -295,14 +371,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
-                    style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A)),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Color(0xFF0F172A),
+                    ),
                     decoration: InputDecoration(
                       hintText: 'อย่างน้อย 6 ตัวอักษร',
                       hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-                      prefixIcon: const Icon(Icons.lock_outline_rounded, color: Color(0xFF64748B), size: 20),
+                      prefixIcon: const Icon(
+                        Icons.lock_outline_rounded,
+                        color: Color(0xFF64748B),
+                        size: 20,
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                          _obscurePassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
                           color: const Color(0xFF64748B),
                           size: 20,
                         ),
@@ -314,22 +399,37 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFE2E8F0),
+                          width: 1,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF0F172A), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF0F172A),
+                          width: 1.5,
+                        ),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1,
+                        ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1.5,
+                        ),
                       ),
                     ),
                     validator: (value) {
@@ -354,14 +454,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFormField(
                     controller: _confirmPasswordController,
                     obscureText: _obscureConfirmPassword,
-                    style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A)),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Color(0xFF0F172A),
+                    ),
                     decoration: InputDecoration(
                       hintText: 'กรอกรหัสผ่านอีกครั้ง',
                       hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-                      prefixIcon: const Icon(Icons.lock_reset_rounded, color: Color(0xFF64748B), size: 20),
+                      prefixIcon: const Icon(
+                        Icons.lock_reset_rounded,
+                        color: Color(0xFF64748B),
+                        size: 20,
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                          _obscureConfirmPassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
                           color: const Color(0xFF64748B),
                           size: 20,
                         ),
@@ -373,22 +482,37 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFE2E8F0),
+                          width: 1,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF0F172A), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF0F172A),
+                          width: 1.5,
+                        ),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1,
+                        ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEF4444),
+                          width: 1.5,
+                        ),
                       ),
                     ),
                     validator: (value) {
@@ -444,7 +568,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       const Text(
                         'มีบัญชีผู้ใช้อยู่แล้ว? ',
-                        style: TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                        style: TextStyle(
+                          color: Color(0xFF64748B),
+                          fontSize: 14,
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
