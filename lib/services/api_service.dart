@@ -46,7 +46,9 @@ class ApiService {
       }
       return data;
     } else {
-      final errorMessage = data['error'] ?? 'เกิดข้อผิดพลาดในการลงทะเบียน (${response.statusCode})';
+      final errorMessage =
+          data['error'] ??
+          'เกิดข้อผิดพลาดในการลงทะเบียน (${response.statusCode})';
       throw Exception(errorMessage);
     }
   }
@@ -64,10 +66,7 @@ class ApiService {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-      }),
+      body: jsonEncode({'email': email, 'password': password}),
     );
 
     debugPrint('================ [API RESPONSE LOG] ================');
@@ -88,7 +87,9 @@ class ApiService {
       }
       return data;
     } else {
-      final errorMessage = data['error'] ?? 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ (${response.statusCode})';
+      final errorMessage =
+          data['error'] ??
+          'เกิดข้อผิดพลาดในการเข้าสู่ระบบ (${response.statusCode})';
       throw Exception(errorMessage);
     }
   }

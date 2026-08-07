@@ -42,7 +42,47 @@
 
 ## 🏗️ สถาปัตยกรรมระบบ (System Architecture & Data Flow)
 
-### แผนผังลำดับการทำงาน (Sequence Diagram)
+### 🖼️ แผนภาพรวมการทำงาน (Authentication Flowchart Diagram)
+
+![User Authentication Workflow Flowchart](assets/images/auth_flowchart.png)
+
+---
+
+### 📊 ผังกระบวนการสมัครสมาชิกและการเข้าสู่ระบบ (Detailed Flowcharts)
+
+#### 1. กระบวนการสมัครสมาชิก (Register Flow)
+```mermaid
+flowchart TD
+    A1[ผู้ใช้กรอกข้อมูลในหน้า RegisterPage] --> B1{ข้อมูลถูกต้องตาม Validation?}
+    B1 -- ไม่ถูกต้อง --> C1[แสดงข้อความแจ้งเตือนสีแดงใต้ช่องกรอกข้อมูล]
+    B1 -- ถูกต้อง --> D1[ปุ่มเปลี่ยนเป็นวงกลมโหลด CircularProgressIndicator]
+    D1 --> E1[ยิง HTTP POST ไปที่ /api/auth/register]
+    E1 --> F1{ตรวจสอบ HTTP Status Code}
+    F1 -- 200 / 201 Success --> G1[บันทึก JWT Token ลงใน FlutterSecureStorage]
+    G1 --> H1[แสดง Snackbar สีเขียว: User registered successfully]
+    H1 --> I1[ย้ายหน้าไปยัง LoginPage]
+    F1 -- 400 / 409 Error --> J1[ดึงข้อความ error จาก JSON Response]
+    J1 --> K1[แสดง Snackbar สีแดงแจ้งสาเหตุข้อผิดพลาด]
+```
+
+#### 2. กระบวนการเข้าสู่ระบบ (Login Flow)
+```mermaid
+flowchart TD
+    A2[ผู้ใช้กรอกข้อมูลในหน้า LoginPage] --> B2{ข้อมูลถูกต้องตาม Validation?}
+    B2 -- ไม่ถูกต้อง --> C2[แสดงข้อความแจ้งเตือนสีแดงใต้ช่องกรอกข้อมูล]
+    B2 -- ถูกต้อง --> D2[ปุ่มเปลี่ยนเป็นวงกลมโหลด CircularProgressIndicator]
+    D2 --> E2[ยิง HTTP POST ไปที่ /api/auth/login]
+    E2 --> F2{ตรวจสอบ HTTP Status Code}
+    F2 -- 200 OK --> G2[บันทึก JWT Token ลงใน FlutterSecureStorage]
+    G2 --> H2[แสดง Snackbar สีเขียว: Login successful]
+    H2 --> I2[ย้ายหน้าไปยัง MyHomePage หน้าหลัก]
+    F2 -- 400 / 401 Error --> J2[ดึงข้อความ error จาก JSON Response]
+    J2 --> K2[แสดง Snackbar สีแดงแจ้งสาเหตุข้อผิดพลาด]
+```
+
+---
+
+### แผนผังลำดับการทำงานระหว่างคลาส (Sequence Diagram)
 
 ```
 [ User UI ] ──(1. Submit Form)──> [ Login/Register Page ]
