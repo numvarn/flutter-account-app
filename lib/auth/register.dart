@@ -48,6 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
         password: _passwordController.text,
       );
 
+      debugPrint('Register Result: $result');
+
       Get.snackbar(
         'สำเร็จ',
         result['message'] ?? 'ลงทะเบียนผู้ใช้สำเร็จ',
@@ -61,6 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
       // ไปยังหน้าเข้าสู่ระบบหลังสมัครสมาชิกสำเร็จ
       Get.off(() => const LoginPage());
     } catch (e) {
+      debugPrint('Register Error: $e');
       final errorMessage = e.toString().replaceAll('Exception: ', '');
       Get.snackbar(
         'ลงทะเบียนไม่สำเร็จ',

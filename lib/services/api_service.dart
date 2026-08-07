@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -30,6 +31,13 @@ class ApiService {
         'password': password,
       }),
     );
+
+    // Print backend response logs to console
+    debugPrint('================ [API RESPONSE LOG] ================');
+    debugPrint('Endpoint: POST $url');
+    debugPrint('Status Code: ${response.statusCode}');
+    debugPrint('Response Body: ${response.body}');
+    debugPrint('====================================================');
 
     final data = jsonDecode(response.body);
 
