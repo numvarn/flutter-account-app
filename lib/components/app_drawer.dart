@@ -7,6 +7,7 @@ import 'package:get_app/list_and_gridview.dart';
 import 'package:get_app/greenpoint/green_point_page.dart';
 import 'package:get_app/greenpoint/partner_store_page.dart';
 import 'package:get_app/auth/welcome_page.dart';
+import 'package:get_app/services/api_service.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -171,7 +172,8 @@ class _AppDrawerState extends State<AppDrawer> {
                 confirmTextColor: Colors.white,
                 cancelTextColor: const Color(0xFF64748B),
                 buttonColor: const Color(0xFFEF4444),
-                onConfirm: () {
+                onConfirm: () async {
+                  await ApiService.logout();
                   Get.offAll(() => const WelcomePage());
                 },
               );

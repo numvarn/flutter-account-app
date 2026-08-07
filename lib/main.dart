@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get_app/auth/welcome_page.dart';
+import 'package:get_app/my_home_page.dart';
+import 'package:get_app/services/token_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -33,8 +36,24 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-      home: const WelcomePage(),
+      home: FutureBuilder<bool>(
+        future: TokenService.hasToken(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFF0F172A),
+                ),
+              ),
+            );
+          }
+          if (snapshot.data == true) {
+            return const MyHomePage();
+          }
+          return const WelcomePage();
+        },
+      ),
     );
   }
 }
-
